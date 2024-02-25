@@ -2,6 +2,9 @@ import getopt, sys, socket
 
 # read in user inputs
 argumentList = sys.argv[1:]
+ipAddr = ''
+port = ''
+logFile = ''
 
 # create options to check for specific arguments
 options = "s:p:l:"
@@ -18,10 +21,11 @@ try:
             logFile = currentValue
 except getopt.error as err:
     print(str(err))
+    sys.exit(1)
 
 # create a socket and check for errors
 try:
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client_socket = socket.socket()
     serverAddr = (ipAddr, port)
 # initialize connection
     client_socket.connect(serverAddr)
@@ -38,11 +42,14 @@ try:
         file = open("{0}.txt".format(logFile), "a")
         file.write("{0}\n".format(recieved))
         file.close()
+        print("Server Returned:  {0}".format(recieved))
 
     client_socket.close()
 
 except socket.timeout:
-    print("No server response")    
+    print("No server response.")
+    sys.exit(1)
 
 except socket.error as err:
     print(str(err))
+    sys.exit(1)
