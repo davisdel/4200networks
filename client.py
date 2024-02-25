@@ -29,9 +29,12 @@ client_socket.connect(serverAddr)
 client_socket.sendall(message.encode('utf-8'))
 
 recieved = client_socket.recv(1024)
-
-print(recieved.decode('utf-8'))
+recieved = (recieved.decode('utf-8'))
 
 # log the returned message
+
+f = open("{0}.txt".format(logFile), "a")
+f.write("{0}\n".format(recieved))
+f.close()
 
 client_socket.close()
