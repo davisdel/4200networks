@@ -29,7 +29,7 @@ try:
     server_socket.bind("0.0.0.0", port)
     server_socket.listen(5)
 
-while(1):
+while 1:
     conn, address = server_socket.accept()
 
     req = conn.recv(1024)
