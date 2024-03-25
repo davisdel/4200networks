@@ -1,0 +1,12 @@
+Listening on port 8000
+Recieved from (('10.142.0.2', 52628)) client:  network
+Returned to client:  If opportunity does not knock, build a door.
+
+Recieved from (('10.142.0.2', 38436)) client:  network!
+Returned to client:  Invalid key word
+Listening on port 8000
+Recieved from (('10.142.0.2', 55286)) client:  network
+Returned to client:  Change your thoughts and you change your world.
+
+Recieved from (('10.142.0.2', 41378)) client:  network!
+Returned to client:  Invalid key word
