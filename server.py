@@ -18,7 +18,8 @@ except getopt.error as err:
 
 quotes = []
 try:
-    quotes = open('quotes.txt', 'r').readlines
+    file = open('quotes.txt', 'r')
+    quotes = file.readlines()
     print(quotes)
 except FileNotFoundError:
     print('Quotes file could not be read.')
