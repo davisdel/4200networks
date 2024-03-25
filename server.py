@@ -18,8 +18,7 @@ except getopt.error as err:
 
 quotes = []
 try:
-    file = open('quotes.txt', 'r')
-    quotes = file.readlines()
+    file = open('quotes.txt', 'r').readlines()
     print(quotes)
 except FileNotFoundError:
     print('Quotes file could not be read.')
@@ -43,9 +42,9 @@ try:
             conn.send(res.encode('utf-8'))
     # log the returned message
             file = open("{0}.txt".format(logFile), "a")
-            file.write("{0}\n".format(recieved))
+            file.write("{0}\n".format(req))
             file.close()
-            print("Returned to client:  {0}".format(recieved))
+            print("Returned to client:  {0}".format(req))
 
         else:
             conn.send("Invalid key word".encode('utf-8'))
