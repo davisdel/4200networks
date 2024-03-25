@@ -28,10 +28,9 @@ except FileNotFoundError:
 try:
     server_socket = socket.socket()
     server_socket.bind(("0.0.0.0", port))
-    server_socket.listen(5)
+    server_socket.listen(10)
 
     while(1):
-        print("Entered while loop")
         conn, address = server_socket.accept()
 
         req = conn.recv(1024)
