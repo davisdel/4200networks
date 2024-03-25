@@ -1,4 +1,4 @@
-import getopt, sys, random
+import getopt, sys, random, socket
 
 options = "p:l:"
 argumentList = sys.argv[1:]
