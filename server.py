@@ -26,7 +26,7 @@ except FileNotFoundError:
 # create a socket and check for errors
 try:
     server_socket = socket.socket()
-    server_socket.bind("0.0.0.0", port)
+    server_socket.bind(("0.0.0.0", port))
     server_socket.listen(5)
 
     while(1):
