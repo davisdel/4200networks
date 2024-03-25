@@ -29,23 +29,23 @@ try:
     server_socket.bind("0.0.0.0", port)
     server_socket.listen(5)
 
-while True:
-    conn, address = server_socket.accept()
+    while(1):
+        conn, address = server_socket.accept()
 
-    req = conn.recv(1024)
-    req = req.decode('utf-8')
+        req = conn.recv(1024)
+        req = req.decode('utf-8')
 
-    if 'network' in req:
-        res = random.choice(quotes)
-        conn.send(res.encode('utf-8'))
-# log the returned message
-        file = open("{0}.txt".format(logFile), "a")
-        file.write("{0}\n".format(recieved))
-        file.close()
-        print("Returned to client:  {0}".format(recieved))
+        if 'network' in req:
+            res = random.choice(quotes)
+            conn.send(res.encode('utf-8'))
+    # log the returned message
+            file = open("{0}.txt".format(logFile), "a")
+            file.write("{0}\n".format(recieved))
+            file.close()
+            print("Returned to client:  {0}".format(recieved))
 
-    else:
-        conn.send("Invalid key word".encode('utf-8'))
+        else:
+            conn.send("Invalid key word".encode('utf-8'))
 
     conn.close()
 
