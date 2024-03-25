@@ -58,7 +58,9 @@ try:
             print_cmd(logFile, "Returned to client:  {0}".format(res))
 
         else:
-            conn.send("Invalid key word".encode('utf-8'))
+            res = "Invalid key word"
+            conn.send(res.encode('utf-8'))
+            print_cmd(logFile, "Returned to client:  {0}".format(res))
 
     conn.close()
 
