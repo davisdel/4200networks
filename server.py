@@ -19,7 +19,6 @@ except getopt.error as err:
 quotes = []
 try:
     quotes = open('quotes.txt', 'r').readlines()
-    print(quotes)
 except FileNotFoundError:
     print('Quotes file could not be read.')
     sys.exit(1)
@@ -28,7 +27,8 @@ except FileNotFoundError:
 try:
     server_socket = socket.socket()
     server_socket.bind(("0.0.0.0", port))
-    server_socket.listen(10)
+    server_socket.listen(5)
+    print("Listening on port {0}".format(port))
 
     while(1):
         conn, address = server_socket.accept()
