@@ -14,6 +14,7 @@ try:
             logFile = currentValue
 except getopt.error as err:
     print(str(err))
+    sys.exit(1)
 
 quotes = []
 try:
@@ -30,6 +31,7 @@ try:
     server_socket.listen(5)
 
     while(1):
+        print("Entered while loop")
         conn, address = server_socket.accept()
 
         req = conn.recv(1024)
