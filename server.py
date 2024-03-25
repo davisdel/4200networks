@@ -23,14 +23,14 @@ try:
         elif currentArgument in ("-l"):
             logFile = currentValue
 except getopt.error as err:
-    print_cmd(str(err))
+    print_cmd(logFile, str(err))
     sys.exit(1)
 
 # read in quotes list
 try:
     quotes = open('quotes.txt', 'r').readlines()
 except FileNotFoundError:
-    print_cmd('Quotes file could not be read.')
+    print_cmd(logFile, 'Quotes file could not be read.')
     sys.exit(1)
 
 try:
@@ -39,7 +39,7 @@ try:
     # bind the socket and listen
     server_socket.bind(("0.0.0.0", port))
     server_socket.listen(5)
-    print_cmd("Listening on port {0}".format(port))
+    print_cmd(logFile, "Listening on port {0}".format(port))
 
     while(1):
         # accept new connection
@@ -48,14 +48,14 @@ try:
         # recieve and decode message
         req = conn.recv(1024)
         req = req.decode('utf-8')
-        print_cmd("Recieved from ({1}) client:  {0}".format(req,address))
+        print_cmd(logFile, "Recieved from ({1}) client:  {0}".format(req,address))
 
     # check if the message is "network"
         if 'network' == req:
             res = random.choice(quotes)
             conn.send(res.encode('utf-8'))
     # log the returned message
-            print_cmd("Returned to client:  {0}".format(res))
+            print_cmd(logFile, "Returned to client:  {0}".format(res))
 
         else:
             conn.send("Invalid key word".encode('utf-8'))
@@ -63,5 +63,5 @@ try:
     conn.close()
 
 except socket.error as err:
-    print_cmd(str(err))
+    print_cmd(logFile, str(err))
     sys.exit(1)
