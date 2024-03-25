@@ -2,7 +2,7 @@ import getopt, sys, random, socket
 
 options = "p:l:"
 argumentList = sys.argv[1:]
-port = ''
+port = 0
 logFile = ''
 
 try:
