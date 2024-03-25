@@ -8,9 +8,9 @@ logFile = ''
 try:
     arguments, values = getopt.getopt(argumentList, options)
     for currentArgument, currentValue in arguments:
-        if currentArgument in ("-s"):
+        if currentArgument in ("-p"):
             port = int(currentValue)
-        elif currentArgument in ("-p"):
+        elif currentArgument in ("-l"):
             logFile = currentValue
 except getopt.error as err:
     print(str(err))
