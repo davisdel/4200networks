@@ -1,5 +1,6 @@
 import getopt, sys, random, socket
 
+# print_cmd function that prints to the screen and to SERVERLOG.txt
 def print_cmd(file, message):
     file = open("{0}.txt".format(file), "a")
     file.write("{0}\n".format(message))
