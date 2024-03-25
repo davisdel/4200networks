@@ -60,6 +60,7 @@ try:
         else:
             res = "Invalid key word"
             conn.send(res.encode('utf-8'))
+    # Log the invalid message
             print_cmd(logFile, "Returned to client:  {0}".format(res))
 
     conn.close()
