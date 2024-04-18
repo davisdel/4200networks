@@ -61,8 +61,8 @@ try:
 
         # check if the message is "HELLO"
         if recVersion == 17 and 'HELLO' == recMessage:
-            res = "HELLO"
-            conn.send(res.encode('utf-8'))
+            packet = pack_data(17, 1, "HELLO")
+            conn.send(packet)
             # log the returned message
             print_cmd(logFile, "Returned to client:  {0}".format(res))
 
