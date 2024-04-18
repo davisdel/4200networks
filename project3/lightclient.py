@@ -71,7 +71,7 @@ try:
     if recVersion == 17 and recMessage == "HELLO":
         # log the returned message
         print_cmd(logFile, "VERSION ACCEPTED")
-        print_cmd("Recieved Message: {0}".format(recMessage))
+        print_cmd(logFile, "Recieved Message: {0}".format(recMessage))
         # take in user login input from the command line
         message = input('Please enter a command (LIGHTON/LIGHTOFF):  ')
         # construct the login packet based on command given
