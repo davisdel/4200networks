@@ -1,4 +1,4 @@
-import getopt, sys, socket
+import getopt, sys, socket, struct
 
 # print_cmd function that prints to the screen and to SERVERLOG.txt
 def print_cmd(file, message):
@@ -7,6 +7,22 @@ def print_cmd(file, message):
     file.close()
     print(message)
     return
+
+# pack function that creates a big-endian packet
+def pack_data(version, metype, message):
+    # pack the struct and send user input to the server
+    packet = struct.pack("! 3i", version, metype, len(message))
+    packet+= message.encode('utf-8')
+    return packet
+
+# unpack function that unpacks the big-endian packet
+def unpack_data(packet):
+    # Unpack the integers
+    version, type, message_length = struct.unpack("! 3i", packet[:12]) 
+    # Decode the remaining bytes to get the string
+    message = packet[12:].decode('utf-8')
+    print_cmd(logFile, "Recieved Data: version: {0}".format(version, type, message_length))
+    return version, type, message_length, message
 
 # define variables and options list
 options = "p:l:"
@@ -39,17 +55,47 @@ try:
         conn, address = server_socket.accept()
 
         # recieve and decode message
-        req = conn.recv(1024)
-        req = req.decode('utf-8')
+        recieved = conn.recv(1024)
+        recVersion, recType, recLength, recMessage = unpack_data(recieved)
         print_cmd(logFile, "Recieved connection from {0}".format(address))
-        print_cmd(logFile, "Recieved data: version:{0}, message_type:{1}, length:{3}".format(req.version, req.type, req.length))
 
         # check if the message is "HELLO"
-        if 'HELLO' == req:
+        if recVersion == 17 and 'HELLO' == recMessage:
             res = "HELLO"
             conn.send(res.encode('utf-8'))
             # log the returned message
             print_cmd(logFile, "Returned to client:  {0}".format(res))
+
+            # recieve and decode command
+            recieved = conn.recv(1024)
+            recVersion, recType, recLength, recMessage = unpack_data(recieved)
+            if recVersion == 17:
+                print_cmd(logFile, "VERSION ACCEPTED")
+                if recType == 1:
+                    print_cmd(logFile, "EXECUTING SUPPORTED COMMAND: LIGHTON")
+                    res = "SUCCESS"
+
+                elif recType == 2:
+                    print_cmd(logFile, "EXECUTING SUPPORTED COMMAND: LIGHTOFF")
+                    res = "SUCCESS"
+                    
+                else:
+                    print_cmd(logFile, "IGNORING UNKNOWN COMMAND: {0}".format(recType))
+                    res = "UNKNOWN COMMAND"
+
+                conn.send(res.encode('utf-8'))
+                print_cmd(logFile, "Returned to client:  {0}".format(res))
+                conn.close()
+                continue
+
+            else:
+                res = "VERSION MISMATCH"
+                conn.send(res.encode('utf-8'))
+                # Log the invalid message
+                print_cmd(logFile, "Returned to client:  {0}".format(res))
+                conn.close()
+                continue
+                
 
         else:
             res = "Invalid key word"
@@ -59,27 +105,7 @@ try:
             conn.close()
             continue
 
-        # recieve and decode header
-        header = conn.recv(1024)
-        header = header.decode('utf-8')
-        print_cmd(logFile, "Recieved connection from {0}".format(address))
-        if header.version != 17:
-            print_cmd(logFile, "VERSION MISMATCH")
-            conn.close()
-            continue
-        else:
-            if header.type == 1:
-                print_cmd(logFile, "EXECUTING SUPPORTED COMMAND: LIGHTON")
-                res = "SUCCESS"
-                conn.send(res.encode('utf-8'))
-            else if header.type == 2:
-                print_cmd(logFile, "EXECUTING SUPPORTED COMMAND: LIGHTOFF")
-                res = "SUCCESS"
-                conn.send(res.encode('utf-8'))
-            else:
-                print_cmd(logFile, "IGNORING UNKNOWN COMMAND: {0}".format(header.type))
-                conn.close()
-                continue
+        
 
 except socket.error as err:
     print_cmd(logFile, str(err))
