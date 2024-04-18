@@ -64,7 +64,7 @@ try:
             packet = pack_data(17, 1, "HELLO")
             conn.send(packet)
             # log the returned message
-            print_cmd(logFile, "Returned to client:  {0}".format(res))
+            print_cmd(logFile, "Returned to client:  {0}".format(recMessage))
 
             # recieve and decode command
             recieved = conn.recv(1024)
