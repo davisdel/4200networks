@@ -21,7 +21,7 @@ def unpack_data(packet):
     version, type, message_length = struct.unpack("! 3i", packet[:12]) 
     # Decode the remaining bytes to get the string
     message = packet[12:].decode('utf-8')
-    print_cmd(logFile, "Recieved Data: version: {0}".format(version, type, message_length))
+    print_cmd(logFile, "Recieved Data: version: {0} type: {1} length: {2}".format(version, type, message_length))
     return version, type, message_length, message
 
 # read in user inputs
@@ -85,6 +85,7 @@ try:
         client_socket.sendall(packet)
         client_socket.settimeout(5)
         recieved = client_socket.recv(1024)
+
         recVersion, recType, recLength, recMessage = unpack_data(recieved)
 
         if recVersion == 17:

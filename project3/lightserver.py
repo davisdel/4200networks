@@ -21,7 +21,7 @@ def unpack_data(packet):
     version, type, message_length = struct.unpack("! 3i", packet[:12]) 
     # Decode the remaining bytes to get the string
     message = packet[12:].decode('utf-8')
-    print_cmd(logFile, "Recieved Data: version: {0}".format(version, type, message_length))
+    print_cmd(logFile, "Recieved Data: version: {0} type: {1} length: {2}".format(version, type, message_length))
     return version, type, message_length, message
 
 # define variables and options list
@@ -83,7 +83,8 @@ try:
                     print_cmd(logFile, "IGNORING UNKNOWN COMMAND: {0}".format(recType))
                     res = "UNKNOWN COMMAND"
 
-                conn.send(res.encode('utf-8'))
+                packet = pack_data(17, 1, res)
+                conn.send(packet)
                 print_cmd(logFile, "Returned to client:  {0}".format(res))
                 conn.close()
                 continue
