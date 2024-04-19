@@ -103,7 +103,7 @@ try:
             sys.exit(1)
 
     else:
-        print_cmd(logFile, "VERSION MISMATCH")
+        print_cmd(logFile, recMessage)
         client_socket.close()
         sys.exit(1)
     

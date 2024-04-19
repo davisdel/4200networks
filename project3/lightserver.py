@@ -58,11 +58,13 @@ try:
         recieved = conn.recv(1024)
         recVersion, recType, recLength, recMessage = unpack_data(recieved)
         print_cmd(logFile, "Recieved connection from {0}".format(address))
-
+        print_cmd(logFile, "Recieved Message: {0}".format(recMessage))
+        
         # check if the message is "HELLO"
         if recVersion == 17 and 'HELLO' == recMessage:
             packet = pack_data(17, 1, "HELLO")
             conn.send(packet)
+            
             # log the returned message
             print_cmd(logFile, "Returned to client:  {0}".format(recMessage))
 
