@@ -1,0 +1,22 @@
+Listening on port 8000
+Recieved Data: version: 17 type: 0 length: 5
+Recieved connection from ('34.73.35.128', 35214)
+Returned to client:  HELLO
+Recieved Data: version: 17 type: 1 length: 7
+VERSION ACCEPTED
+EXECUTING SUPPORTED COMMAND: LIGHTON
+Returned to client:  SUCCESS
+Recieved Data: version: 17 type: 0 length: 5
+Recieved connection from ('34.73.35.128', 35222)
+Returned to client:  HELLO
+Recieved Data: version: 17 type: 2 length: 8
+VERSION ACCEPTED
+EXECUTING SUPPORTED COMMAND: LIGHTOFF
+Returned to client:  SUCCESS
+Recieved Data: version: 17 type: 0 length: 5
+Recieved connection from ('34.73.35.128', 51912)
+Returned to client:  HELLO
+Recieved Data: version: 17 type: 3 length: 7
+VERSION ACCEPTED
+IGNORING UNKNOWN COMMAND: 3
+Returned to client:  UNKNOWN COMMAND
