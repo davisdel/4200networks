@@ -1,0 +1,21 @@
+Recieved Data: version: 17 type: 1 length: 5
+VERSION ACCEPTED
+Recieved Message: HELLO
+Recieved Data: version: 17 type: 2 length: 7
+VERSION ACCEPTED
+Recieved Message: SUCCESS
+Closing connection
+Recieved Data: version: 17 type: 1 length: 5
+VERSION ACCEPTED
+Recieved Message: HELLO
+Recieved Data: version: 17 type: 2 length: 7
+VERSION ACCEPTED
+Recieved Message: SUCCESS
+Closing connection
+Recieved Data: version: 17 type: 1 length: 5
+VERSION ACCEPTED
+Recieved Message: HELLO
+Recieved Data: version: 17 type: 2 length: 15
+VERSION ACCEPTED
+Recieved Message: UNKNOWN COMMAND
+Closing connection
