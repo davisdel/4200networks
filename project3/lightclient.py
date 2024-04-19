@@ -91,8 +91,9 @@ try:
         if recVersion == 17:
             print_cmd(logFile, "VERSION ACCEPTED")
             print_cmd(logFile, "Recieved Message: {0}".format(recMessage))
-            close = "DISCONNECT"
-            client_socket.sendall(close.encode('utf-8'))
+            res = "DISCONNECT"
+            packet = pack_data(17, 2, res)
+            client_socket.send(packet)
             print_cmd(logFile, "Closing connection")
             client_socket.close()
 
