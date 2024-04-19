@@ -13,10 +13,12 @@ def pack_data(version, metype, message):
     # pack the struct and send user input to the server
     packet = struct.pack("! 3i", version, metype, len(message))
     packet+= message.encode('utf-8')
+    packet = packet.encode('utf-8')
     return packet
 
 # unpack function that unpacks the big-endian packet
 def unpack_data(packet):
+    packet = packet.decode('utf-8')
     # Unpack the integers
     version, type, message_length = struct.unpack("! 3i", packet[:12]) 
     # Decode the remaining bytes to get the string
