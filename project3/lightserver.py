@@ -83,7 +83,7 @@ try:
                     print_cmd(logFile, "IGNORING UNKNOWN COMMAND: {0}".format(recType))
                     res = "UNKNOWN COMMAND"
 
-                packet = pack_data(17, 1, res)
+                packet = pack_data(17, 2, res)
                 conn.send(packet)
                 print_cmd(logFile, "Returned to client:  {0}".format(res))
                 conn.close()
@@ -91,7 +91,8 @@ try:
 
             else:
                 res = "VERSION MISMATCH"
-                conn.send(res.encode('utf-8'))
+                packet = pack_data(17, 2, res)
+                conn.send(packet)
                 # Log the invalid message
                 print_cmd(logFile, "Returned to client:  {0}".format(res))
                 conn.close()
@@ -100,7 +101,8 @@ try:
 
         else:
             res = "Invalid key word"
-            conn.send(res.encode('utf-8'))
+            packet = pack_data(17, 2, res)
+            conn.send(packet)
             # Log the invalid message
             print_cmd(logFile, "Returned to client:  {0}".format(res))
             conn.close()

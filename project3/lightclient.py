@@ -18,7 +18,7 @@ def pack_data(version, metype, message):
 # unpack function that unpacks the big-endian packet
 def unpack_data(packet):
     # Unpack the integers
-    version, type, message_length = struct.unpack("! 3i", packet[:12]) 
+    version, type, message_length = struct.unpack("! 3i", packet[:12])
     # Decode the remaining bytes to get the string
     message = packet[12:].decode('utf-8')
     print_cmd(logFile, "Recieved Data: version: {0} type: {1} length: {2}".format(version, type, message_length))
